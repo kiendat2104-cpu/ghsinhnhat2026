@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday System Check</title>
+    <title>Birthday Private Access</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #eceff1;
+            background: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,119 +17,118 @@
         }
         .card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 450px;
+            max-width: 400px;
             width: 90%;
         }
-        .header {
-            color: #546e7a;
-            font-family: monospace;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+        .header { color: #78909c; font-family: monospace; font-size: 0.8em; margin-bottom: 20px; }
+        
+
+        .password-section { margin-bottom: 20px; }
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+            font-size: 1em;
         }
-        .date-display {
-            font-size: 0.9em;
-            color: #90a4ae;
-            margin-bottom: 20px;
-        }
-        #result-area {
-            margin-top: 20px;
-            min-height: 100px;
-        }
-        .btn-open {
-            background: #263238;
+        input[type="password"]:focus { border-color: #3498db; }
+        
+        .btn-run {
+            background: #2c3e50;
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 6px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
+            margin-top: 15px;
+            width: 85%;
         }
-        .btn-open:hover { background: #455a64; }
+        .btn-run:hover { background: #34495e; }
 
-        .birthday-box {
-            display: none;
-            animation: fadeIn 1s ease-in;
-        }
-        .message-text {
-            color: #d81b60;
-            font-size: 1.2em;
-            font-weight: bold;
-            line-height: 1.6;
-        }
-        .system-note { color: #f4511e; font-weight: bold; }
+        #result-area { margin-top: 20px; }
+        .birthday-box { display: none; animation: fadeIn 0.8s ease-in; }
+        .message-text { color: #e91e63; font-size: 1.1em; font-weight: bold; line-height: 1.6; }
+        .error { color: #e74c3c; font-size: 0.9em; margin-top: 10px; display: none; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header">--- System Check ---</div>
-    <div class="date-display" id="today-date">Date: </div>
+    <div class="header">>> SECURE_LOGIN_SYSTEM_V2.0</div>
     
-    <div id="action-area">
-        <button class="btn-open" onclick="runBirthdayLogic()">RUN PROGRAM</button>
+    <div id="login-form">
+        <p style="color: #555;">Nhập mật mã để mở khóa:</p>
+        <div class="password-section">
+            <input type="password" id="pwd" placeholder="Mật mã là gì nhỉ?">
+            <p id="error-msg" class="error">Mật mã chưa đúng rồi!</p>
+        </div>
+        <button class="btn-run" onclick="validateAndRun()">RUN PROGRAM</button>
     </div>
 
     <div id="result-area">
         <div id="birthday-content" class="birthday-box">
-            <p style="color: #2e7d32; font-weight: bold;">[ACCESS GRANTED]</p>
+            <p style="color: #27ae60; font-weight: bold;">[ACCESS GRANTED]</p>
             <p>******************************************</p>
             <p class="message-text">chuc mung sinh nhat 21/01/2026! tuoi moi that vui, thanh cong va vung vang voi muc tieu cua em nam nay nhe!</p>
             <p>******************************************</p>
-            <p><i>Chuc em mot hanh trinh moi that thu vi, mong em mai mai vui cuoi khong bao bao gio khoc!</i></p>
-        </div>
-
-        <div id="error-content" class="birthday-box">
-            <p class="system-note">[SYSTEM NOTE]: hom nay chua phai la ngay 21/01/2026.</p>
-            <p style="letter-spacing: 2px;">QUAY LAI VAO DUNG NGAY!</p>
+            <p style="font-style: italic; color: #555;">Chuc em mot hanh trinh moi that thu vi, mong em mai mai vui cuoi khong bao gio khoc!</p>
         </div>
     </div>
-
-    <div class="header" style="border:none; border-top: 1px solid #eee; margin-top:20px; padding: 10px 0 0 0;">--- END ---</div>
+    
+    <div class="header" style="margin-top:30px;">-- PROCESS FINISHED --</div>
 </div>
 
 <script>
+    function validateAndRun() {
 
-    const now = new Date();
-    document.getElementById('today-date').innerText = "Date: " + now.toLocaleDateString('vi-VN');
-
-    function runBirthdayLogic() {
-        // Khai báo biến (Bước 1 & 2 trong Java của bạn)
+        const inputPwd = document.getElementById('pwd').value;
+        const correctPwd = "xinloianhsui"; 
+        
+        const now = new Date();
         const targetDay = 21;
         const targetMonth = 0; 
         const targetYear = 2026;
+
+        if (inputPwd !== correctPwd) {
+            document.getElementById('error-msg').style.display = 'block';
+            return;
+        }
 
         const isBirthday = (now.getDate() === targetDay && 
                             now.getMonth() === targetMonth && 
                             now.getFullYear() === targetYear);
 
-
         if (isBirthday) {
+            document.getElementById('login-form').style.display = 'none';
             document.getElementById('birthday-content').style.display = 'block';
-            document.getElementById('error-content').style.display = 'none';
-            document.getElementById('action-area').style.display = 'none';
-
+            
             confetti({
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 }
             });
         } else {
-            document.getElementById('error-content').style.display = 'block';
-            document.getElementById('birthday-content').style.display = 'none';
+            alert("Mật khẩu đúng rồi, nhưng hôm nay chưa phải là ngày 21/01/2026 đâu. Quay lại sau nhé!");
         }
     }
 </script>
 
 </body>
+</html>
+
+</body>
+
 </html>
