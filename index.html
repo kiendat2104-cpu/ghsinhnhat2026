@@ -80,7 +80,7 @@
 
         .card-content h1 {
             font-size: 1.5rem;
-            color: #d4a373; /* Màu vàng đồng nhẹ */
+            color: #d4a373; 
             margin-bottom: 20px;
         }
 
@@ -121,7 +121,7 @@
             <div class="message">
                 Chúc mừng sinh nhật 21/01/2026! mong em tuổi mới vui vẻ, thành công và vững vàng đạt được mục tiêu của năm nay nhé và hãy nhìn lại xem chặng đường mà mình đã đi qua nhé!
                 <br><br>
-                Chúc em có một hành trình mới thật thú vị, và sẽ không bao giờ khóc, xin lỗi anh vẫn sủi =)))!
+                Chúc em có một hành trình mới thật thú vị, và sẽ không bao giờ khóc, xin lỗi anh vẫn sủi =)))!!!
             </div>
             <div class="signature">
                 Gửi từ người anh của em ❤️
@@ -134,22 +134,21 @@
         const pass = document.getElementById('passwordInput').value;
         const error = document.getElementById('errorMessage');
         
-        // MẬT KHẨU CỦA BẠN: 2101
+
         if (pass === "xinloianhsui") {
             const now = new Date();
-            const targetDay = 20;
-            const targetMonth = 0; // Tháng 1
+            const targetDay = 21;
+            const targetMonth = 0; 
             const targetYear = 2026;
 
-            // KIỂM TRA NGÀY (Sửa 'true' nếu muốn test ngay lập tức)
             const isCorrectDate = (now.getDate() === targetDay && now.getMonth() === targetMonth && now.getFullYear() === targetYear);
 
             if (isCorrectDate) {
-                // Ẩn login, hiện thiệp
+
                 document.getElementById('login-box').style.display = 'none';
                 document.getElementById('birthday-card').style.display = 'block';
                 
-                // Hiệu ứng pháo hoa
+
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -167,6 +166,7 @@
 
 </body>
 </html>
+
 
 
 
